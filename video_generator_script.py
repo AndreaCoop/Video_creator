@@ -8,6 +8,7 @@ pip install drawnow
 import numpy as np
 import matplotlib.pyplot as plt
 from drawnow import drawnow, figure
+from cv2 import VideoWriter
 
 # load data
 [X,Y] = np.loadtxt("testSin.txt")
