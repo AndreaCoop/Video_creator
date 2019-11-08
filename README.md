@@ -1,5 +1,3 @@
-|Travis|_ |AzurePipelines|_ |AppVeyor|_ |Codecov|_ |LGTM|_ |PyPi|_ |Gitter|_ |NUMFocus|_ |GitTutorial|_
-
 # Video_creator
 A simple script to create an animated plot
 
