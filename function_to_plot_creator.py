@@ -63,3 +63,29 @@ plt.legend(loc='best')
 plt.xlabel('t')
 plt.show()
 
+
+# # Sin function Exponential decay 
+#
+# The following script generate a sin function which exponentially decays after 4 seconds. It saves the result in a txt file and plot the result
+
+# +
+import numpy as np
+import matplotlib.pyplot as plt
+# %matplotlib widget
+
+x = np.linspace(0,20,1000)
+y = np.sin(10*x)
+h = np.exp(-0.4*x)
+z = np.zeros((1000,))
+z[0:199] = y[0:199]
+z[199:999] = y[199:999]*h[0:800]
+
+np.savetxt("sin_expdecay.txt",[x, z])
+
+[X,Z] = np.loadtxt("sin_expdecay.txt")
+fig, axes = plt.subplots()
+
+axes.plot(X,Z)
+# -
+
+
