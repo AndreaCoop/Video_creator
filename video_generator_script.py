@@ -14,7 +14,7 @@ from matplotlib import animation
 file_data = "testSin.txt"
 
 #set title and legth of the movie
-title_movie = 'animation_basic'
+title_movie = 'prova1'
 length_movie = 10 # in seconds
 
 n_datapoint_per_interval = 10
@@ -27,7 +27,7 @@ plot_title = 'Best plot ever!'
 
 # +
 
-def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_title, movie_title, movie_length)
+def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_title, movie_title, movie_length):
 
     # load data
     [X,Y] = np.loadtxt(file_data)
@@ -45,7 +45,6 @@ def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_
 
 
     # print(X_length, n_datapoint_per_interval, X_interval)
-# -
 
     # code with animation function of matplotlib
 
@@ -56,8 +55,9 @@ def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_
     ax.set_ylabel(Y_label)
     ax.set_title(plot_title)
     line, = ax.plot([], [], lw=2)
+
     # set movie_title
-    title_movie = 'movie_title' + '.mp4'
+    title_movie = movie_title + '.mp4'
 
     # frames per second
     frames_per_seconds = (X_interval+1) // movie_length  
@@ -88,4 +88,7 @@ def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_
     #       es. if frames = 1000 in FuncAnimation and fps = 100: the movie will last 10 seconds
 
     plt.show()
-video_generator(file_data, n_datapoint_per_interval, x_label, y_label, plot_title, title_movie, length_movie)
+# -
+video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_title, title_movie, length_movie)
+
+
