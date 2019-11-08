@@ -73,19 +73,42 @@ import numpy as np
 import matplotlib.pyplot as plt
 # %matplotlib widget
 
+def exp_sin(x,alpha,x_delay,points):
+    """Create an exponential decaying sin function
+    
+    Parameters
+    ----------
+    x : np.array
+        x values
+    alpha : float
+            exp(alpha*x)
+    x_delay : float
+              delay time after which the sin starts decaying
+    points : int
+             total number of points of X
+    Returns
+    -------
+    z = np.array
+    """
+
+    y = np.sin(10*x)
+    h = np.exp(-alpha*x)
+    z = np.zeros((1000,))
+    x_interval = (x[-1]-x[0])/1000
+    points_delay = int(x_delay/x_interval)-1
+    print(points_delay)
+    print(points)
+    z[0:points_delay] = y[0:points_delay]
+    z[points_delay+1:points] = y[points_delay+1:points]*h[0:800]
+
+    np.savetxt("sin_expdecay.txt",[x, z])
+
+    [X,Z] = np.loadtxt("sin_expdecay.txt")
+    fig, axes = plt.subplots()
+
+    axes.plot(X,Z)
+
 x = np.linspace(0,20,1000)
-y = np.sin(10*x)
-h = np.exp(-0.4*x)
-z = np.zeros((1000,))
-z[0:199] = y[0:199]
-z[199:999] = y[199:999]*h[0:800]
-
-np.savetxt("sin_expdecay.txt",[x, z])
-
-[X,Z] = np.loadtxt("sin_expdecay.txt")
-fig, axes = plt.subplots()
-
-axes.plot(X,Z)
+exp_sin(x,0.4,4,1000)
 # -
-
 
