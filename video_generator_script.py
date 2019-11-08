@@ -2,74 +2,90 @@
 
 # import data
 
-# pip install drawnow
-
-# pip install opencv-python
-
 # import packages
 import numpy as np
 import matplotlib.pyplot as plt
-#from drawnow import drawnow, figure
-#from cv2 import VideoWriter
 from matplotlib import animation
 
-# load data
-[X,Y] = np.loadtxt("testSin.txt")
+# +
+# input esterni - cancella
 
-# function to generate plot at each frame
-def draw_fig_real():
-    #figure() # don't call, otherwise opens new window
-    # plt.pyplot.imshow(z, interpolation='nearest')
-    #plt.colorbar()
-    #show()
-    plt.ion()
-    fig, axes1 = plt.subplots()
-    axes1.set_xlim(0,9)
-    axes1.plot(X1,Y1)
+# data from a .txt file
+file_data = "testSin.txt"
 
-# for loop to create many frames
-N = 16 # number of frames
-for i in range(1,N):
-    j=i*(len(X)//N)
-    X1=X[0:j]
-    Y1=Y[0:j]
-    draw_fig_real()
+#set title and legth of the movie
+title_movie = 'animation_basic'
+length_movie = 10 # in seconds
+
+n_datapoint_per_interval = 10
+
+# Decorate the plot
+X_label = 'x'
+Y_label = 'sin(x)'
+plot_title = 'Best plot ever!'
+
 
 # +
-# code with animation function of matplotlib
 
-# First set up the figure, the axis, and the plot element we want to animate
-fig = plt.figure()
-ax = plt.axes(xlim=(0, 9), ylim=(-2, 2))
-line, = ax.plot([], [], lw=2)
+def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_title, movie_title, movie_length)
 
-# initialization function: plot the background of each frame
-def init():
-    line.set_data([], [])
-    return line,
+    # load data
+    [X,Y] = np.loadtxt(file_data)
 
-# animation function.  This is called sequentially
-def animate(i):
-    line.set_data(X[0:i], Y[0:i])
-    return line,
+    # set number of frames for creating the plot
+    X_length = len(X)
+    X_interval = X_length // n_datapoint_per_interval
 
-# call the animator.  blit=True means only re-draw the parts that have changed.
-anim = animation.FuncAnimation(fig, animate, init_func=init,
-                               frames=1000, interval=2, blit=True)
+    # set limits of the plot
+    X_start = X[0]
+    X_stop = X[-1]
+    Y_gap = (np.amax(Y) - np.amin(Y)) * 0.1
+    Y_start = np.amin(Y) - Y_gap
+    Y_stop = np.amax(Y) + Y_gap
 
 
-# save the animation as an mp4.  This requires ffmpeg or mencoder to be
-# installed.  The extra_args ensure that the x264 codec is used, so that
-# the video can be embedded in html5.  You may need to adjust this for
-# your system: for more information, see
-# http://matplotlib.sourceforge.net/api/animation_api.html
-anim.save('basic_animation.mp4', fps=60, extra_args=['-vcodec', 'libx264'])
-
-plt.show()
-
+    # print(X_length, n_datapoint_per_interval, X_interval)
 # -
-help(FuncAnimation)
+
+    # code with animation function of matplotlib
+
+    # First set up the figure, the axis, and the plot element we want to animate
+    fig = plt.figure()
+    ax = plt.axes(xlim=(X_start, X_stop), ylim=(Y_start, Y_stop))
+    ax.set_xlabel(X_label)
+    ax.set_ylabel(Y_label)
+    ax.set_title(plot_title)
+    line, = ax.plot([], [], lw=2)
+    # set movie_title
+    title_movie = 'movie_title' + '.mp4'
+
+    # frames per second
+    frames_per_seconds = (X_interval+1) // movie_length  
+
+    # initialization function: plot the background of each frame
+    def init():
+        line.set_data([], [])
+        return line,
+
+    # animation function.  This is called sequentially
+    def animate(i):
+        line.set_data(X[0:i*n_datapoint_per_interval], Y[0:i*n_datapoint_per_interval])
+        return line,
+
+    # call the animator.  blit=True means only re-draw the parts that have changed.
+    anim = animation.FuncAnimation(fig, animate, init_func=init,
+                                   frames=X_interval+1, interval=200, blit=True)
 
 
+    # save the animation as an mp4.  This requires ffmpeg or mencoder to be
+    # installed.  The extra_args ensure that the x264 codec is used, so that
+    # the video can be embedded in html5.  You may need to adjust this for
+    # your system: for more information, see
+    # http://matplotlib.sourceforge.net/api/animation_api.html
+    anim.save(title_movie, fps=frames_per_seconds, extra_args=['-vcodec', 'libx264'])
+    # fps: frames per second in the movie 
+    #      --> the higher the number of fps, the faster will be animation in the movie
+    #       es. if frames = 1000 in FuncAnimation and fps = 100: the movie will last 10 seconds
 
-
+    plt.show()
+video_generator(file_data, n_datapoint_per_interval, x_label, y_label, plot_title, title_movie, length_movie)
