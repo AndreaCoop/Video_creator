@@ -10,7 +10,7 @@ from matplotlib import animation
 The repository contains the following files:
 
 ## video_generator_script.py
-This file contain the function `video_generator` which create the video and save it in .mp4. 
+This file contain the function `video_generator` to create the video and save it in .mp4. 
 
 ## function_to_plot_creator.py
 This file creates two .txt files which can be used as example to run the code
