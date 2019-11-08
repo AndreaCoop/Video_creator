@@ -8,27 +8,51 @@ import matplotlib.pyplot as plt
 from matplotlib import animation
 
 # +
-# input esterni - cancella
+# input 
 
 # data from a .txt file
 file_data = "sin_expdecay.txt"
 
 #set title and legth of the movie
-title_movie = 'prova2'
-length_movie = 5 # in seconds
+title_movie = 'example3_20s_5dpi'
+length_movie = 20 # in seconds
 
-n_datapoint_per_interval = 1
+n_datapoint_per_interval = 5
 
 # Decorate the plot
-X_label = 'x'
-Y_label = 'sin(x)'
+X_label = 'time [s]'
+Y_label = 'Signal'
 plot_title = 'Best plot ever!'
 
 
 # +
 
-def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_title, movie_title, movie_length):
-
+def video_generator(file_data, X_label, Y_label, plot_title, movie_title, movie_length, n_datapoint_per_interval=1):
+    """Create a video animation from a data set
+    
+    The video is saved in a .mp4 file in the same folder
+    
+    Parameters
+    ----------
+    file_data : .txt file 
+                file containing the data to plot, in the format of a np.array([x, y])
+    X_label : str
+              label of X axis
+    Y_label : str
+              label of y axis
+    plot_title : str
+                 title of the plot
+    movie_title : str
+                  name to give to the .mp4 file when saved
+    movie_length : int
+                   duration in seconds of the movie
+    n_datapoint_per interval: int, optional 
+                              number of datapoints taken in each frame (default=1)
+                              if n_datapoint_per interval = 1 : it takes as number of frames as the number of datapoints
+                              if n_datapoint_per interval > 1 : there will be less frames, 
+                                                                the video will be less smooth 
+                                                                but it will take less time to create it
+    """
     # load data
     [X,Y] = np.loadtxt(file_data)
 
@@ -89,6 +113,6 @@ def video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_
 
     plt.show()
 # -
-video_generator(file_data, n_datapoint_per_interval, X_label, Y_label, plot_title, title_movie, length_movie)
+video_generator(file_data, X_label, Y_label, plot_title, title_movie, length_movie, n_datapoint_per_interval)
 
 
