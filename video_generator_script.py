@@ -2,15 +2,15 @@
 
 # import data
 
-pip install drawnow
+# pip install drawnow
 
-pip install opencv-python
+# pip install opencv-python
 
 # import packages
 import numpy as np
 import matplotlib.pyplot as plt
-from drawnow import drawnow, figure
-from cv2 import VideoWriter
+#from drawnow import drawnow, figure
+#from cv2 import VideoWriter
 from matplotlib import animation
 
 # load data
@@ -68,5 +68,8 @@ anim.save('basic_animation.mp4', fps=60, extra_args=['-vcodec', 'libx264'])
 plt.show()
 
 # -
+help(FuncAnimation)
+
+
 
 
