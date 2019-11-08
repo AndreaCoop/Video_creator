@@ -99,7 +99,7 @@ def exp_sin(x,alpha,x_delay,points):
     print(points_delay)
     print(points)
     z[0:points_delay] = y[0:points_delay]
-    z[points_delay+1:points] = y[points_delay+1:points]*h[0:800]
+    z[points_delay:points] = y[points_delay:points]*h[0:801]
 
     np.savetxt("sin_expdecay.txt",[x, z])
 

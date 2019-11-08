@@ -11,13 +11,13 @@ from matplotlib import animation
 # input esterni - cancella
 
 # data from a .txt file
-file_data = "testSin.txt"
+file_data = "sin_expdecay.txt"
 
 #set title and legth of the movie
-title_movie = 'prova1'
-length_movie = 10 # in seconds
+title_movie = 'prova2'
+length_movie = 5 # in seconds
 
-n_datapoint_per_interval = 10
+n_datapoint_per_interval = 1
 
 # Decorate the plot
 X_label = 'x'
